@@ -10,7 +10,7 @@ newsocket resd 1
 
 
 section .data
-server_adr1 db 2,0,0xAA,0xAA,192,168,203,6,0,0,0,0,0,0,0,0,0
+server_adr1 db 2,0,0xAA,0xAA,192,168,0,101,0,0,0,0,0,0,0,0,0
 connected db "You are connected!", 10, "Type Something: ",0
 len_connected equ $-connected
 more db "More: ",0

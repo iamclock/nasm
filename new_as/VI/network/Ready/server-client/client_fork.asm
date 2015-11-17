@@ -14,7 +14,7 @@ sock_desc resd 1
 
 
 section .data
-server_adr db 2,0,0xAA,0xAA,192,168,203,6,0,0,0,0,0,0,0,0
+server_adr db 2,0,0xAA,0xAA,192,168,0,101,0,0,0,0,0,0,0,0
 len_buffer dd 0
 socket dd 2,1,0
 shutdown db "shutdown"
@@ -60,6 +60,21 @@ _start:
 ; 	add esp, 0x8
 	
 .m1:
+	
+	push dword 0
+	push len_buffer_orig
+	push buffer
+	push dword [sock_desc]
+	call socket_recv
+	
+	add esp, 0x10
+	
+	push eax
+	push buffer
+	call output
+	
+	add esp, 0x8
+	
 	push len_buffer_orig
 	push buffer
 	call input_string
@@ -85,24 +100,7 @@ _start:
 	
 	add esp, 0x10
 	
-	push dword 0
-	push len_buffer_orig
-	push buffer
-	push dword [sock_desc]
-	call socket_recv
-	
-	add esp, 0x10
-	
-	
-	push eax
-	push buffer
-	call output
-	
-	
-	add esp, 0x8
-	
 	jmp .m1
-	
 	
 .m2:
 	push dword [sock_desc]
